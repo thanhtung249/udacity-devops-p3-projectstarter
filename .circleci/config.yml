@@ -187,10 +187,6 @@ jobs:
                 --output text` && \
             echo $EC2_PUBGLIC_URL >> .circleci/ansible/inventory.txt
             echo URL $EC2_PUBGLIC_URL && \
-            echo TOKEN 974a9eac-715e-40e8-926f-7203819cb709 && \
-            curl -H "Content-Type: text/plain" -H "token: 974a9eac-715e-40e8-926f-7203819cb709" \
-                --request PUT \
-                --data $EC2_PUBGLIC_URL https://api.memstash.io/values/udacity-project-03-senavs && \
             cat .circleci/ansible/inventory.txt
       - persist_to_workspace:
           root: ~/
