@@ -296,20 +296,20 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: cimg/base:stable
+      - image: amazon/aws-cli
     steps:
       - checkout
-      - install_awscli
-      - install_nodejs
+      - run: yum install -y tar gzip 
       - attach_workspace:
             at: ~/      
       - run:
-          name: Install dependencies
+          name: Install dependencies 1
           command: |
-              cd frontend
-              npm install
+              cat /etc/*release
+              curl -sL https://rpm.nodesource.com/setup_lts.x | bash -
+              yum -y install nodejs
       - run:
-          name: Get frontend url
+          name: Get backend url
           command: |
               export BACKEND_IP=$(aws ec2 describe-instances \
               --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
